@@ -64,9 +64,10 @@ def snowflake_generate():
         # Define model and parameters
         output = ""
         for event in replicate_client.stream(
-            "snowflake/snowflake-arctic-instruct",  # Replace with the actual model ID
-            {"prompt": prompt, "temperature": 0.75, "max_new_tokens": 500}
-        ):
+                "snowflake/snowflake-arctic-instruct",
+                input={"prompt": prompt, "temperature": 0.75, "max_new_tokens": 500}  # Correct: Pass as keyword argument
+            ):
+
             if hasattr(event, "data"):  # Ensure the event has a "data" attribute
                 output += event.data
         
