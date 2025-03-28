@@ -17,11 +17,11 @@ app = Flask(__name__)
 
 CORS(app)
 
-api_key = os.getenv('API_KEY')
+api_key = os.getenv('GOOGLE_API_KEY')
 
 # Check if the API key exists
 if not api_key:
-    raise ValueError("API_KEY is missing from the environment variables")
+    raise ValueError("GOOGLE_API_KEY is missing from the environment variables")
 
 client = genai.Client(api_key=api_key)
 
