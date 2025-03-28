@@ -26,7 +26,7 @@ client = genai.Client(api_key=api_key)
 def home():
     return 'API is running!'
 
-@app.route('/google/generate', methods=['POST'])
+@app.route('/google', methods=['POST'])
 def google_generate():
     data = request.json
     user_input = data.get('text', '')
@@ -48,7 +48,7 @@ def google_generate():
     except Exception as e:
         return jsonify({"error": str(e)}), 500
 
-@app.route('/snowflake/generate', methods=['POST'])
+@app.route('/snowflake', methods=['POST'])
 def snowflake_generate():
     data = request.json
     prompt = data.get('prompt', '')
