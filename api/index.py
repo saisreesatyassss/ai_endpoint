@@ -48,6 +48,7 @@ def google_generate():
     except Exception as e:
         return jsonify({"error": str(e)}), 500
 
+
 @app.route('/snowflake', methods=['POST'])
 def snowflake_generate():
     data = request.json
@@ -63,16 +64,17 @@ def snowflake_generate():
         # Define model and parameters
         output = ""
         for event in replicate_client.stream(
-            "snowflake/snowflake-arctic-instruct",  # Replace with actual model ID if needed
+            "snowflake/snowflake-arctic-instruct",  # Replace with the actual model ID
             {"prompt": prompt, "temperature": 0.75, "max_new_tokens": 500}
         ):
-            if isinstance(event, str):  # Ensure data is correctly extracted
-                output += event
+            if hasattr(event, "data"):  # Ensure the event has a "data" attribute
+                output += event.data
         
         return jsonify({"response": output})
     
     except Exception as e:
         return jsonify({"error": str(e)}), 500
+    
 
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0', port=8000)
