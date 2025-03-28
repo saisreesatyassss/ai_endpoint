@@ -52,7 +52,7 @@ def google_generate():
 @app.route('/snowflake', methods=['POST'])
 def snowflake_generate():
     data = request.json
-    prompt = data.get('prompt', '')
+    prompt = data.get('text', '')
 
     if not prompt:
         return jsonify({"error": "Prompt is required"}), 400
@@ -76,6 +76,29 @@ def snowflake_generate():
     except Exception as e:
         return jsonify({"error": str(e)}), 500
     
+
+@app.route('/llama', methods=['POST'])
+def generate_llama3():
+    data = request.json
+    prompt = data.get('text', '')
+
+    if not prompt:
+        return jsonify({"error": "Prompt is required"}), 400
+
+    try:
+        replicate_client = replicate.Client(api_token=replicate_api_token)
+        input_params = {
+            "prompt": prompt,
+            "max_new_tokens": 512,
+            "prompt_template": "<|begin_of_text|><|start_header_id|>system<|end_header_id|>\n\n{system_prompt}<|eot_id|><|start_header_id|>user<|end_header_id|>\n\n{prompt}<|eot_id|><|start_header_id|>assistant<|end_header_id|>\n\n"
+        }
+
+        output = "".join(str(event) for event in replicate_client.stream("meta/meta-llama-3-8b-instruct", input_params))
+
+        return jsonify({"response": output})
+    
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
 
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0', port=8000)
