@@ -11,7 +11,7 @@ This PR introduces new enhancements to API Dash, focusing on improving debugging
 - Added support for selecting multiple models like Google Maps and Snowflake within API Dash.
 - Enables seamless integration and switching between different models for enhanced flexibility.
 - Screenshot:
-  ![Multi-Model Selection Screenshot](#) *(https://raw.githubusercontent.com/saisreesatyassss/ai_endpoint/refs/heads/main/dash2.jpg)*
+![Multi-Model Selection Screenshot](https://raw.githubusercontent.com/saisreesatyassss/ai_endpoint/refs/heads/main/dash2.jpg)
 - Video Demonstration: [Multi-Model Selection Demo](#) *(https://drive.google.com/file/d/1vJcrqLwmMukxqWaaDPXI4WUGF7iBQB2q/view?usp=sharing)*
 
 #### **2️⃣ Debug Requests Based on Status Codes & Error Messages**
